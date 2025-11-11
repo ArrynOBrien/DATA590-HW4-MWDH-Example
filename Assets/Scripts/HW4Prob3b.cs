@@ -1,3 +1,4 @@
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class HW4Prob3b : MonoBehaviour
@@ -48,6 +49,15 @@ public class HW4Prob3b : MonoBehaviour
         // Reading triggers
         rhand.transform.localScale = new Vector3(0.1f, 0.05f, 0.2f + OVRInput.Get(OVRInput.RawAxis1D.RHandTrigger));
         lhand.transform.localScale = new Vector3(0.1f, 0.05f, 0.2f + OVRInput.Get(OVRInput.RawAxis1D.LHandTrigger));
+
+        // Code for ball
+        if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger))
+        {
+            ball.transform.position = rhand.transform.position;
+            Vector3 vel = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RHand);
+            vel.z = -vel.z;
+            ball.GetComponent<Rigidbody>().linearVelocity = vel;
+        }
 
 	}
 }
