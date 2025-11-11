@@ -22,15 +22,32 @@ public class HW4Prob3b : MonoBehaviour
         // Updating head position
         Vector3 pos = headtracker.transform.position; 
         Quaternion q = headtracker.transform.rotation;
-        pos.z = 1.5f + pos.z;
+        pos.z = 1.5f - pos.z;
+        q.x = -q.x;
+        q.y = -q.y;
         head.transform.position = pos;
         head.transform.rotation = q;
 
         // Updating hand positions
-        lhand.transform.position = lhandtracker.transform.position + new Vector3(0, 0, 1.5f);
-        rhand.transform.position = rhandtracker.transform.position + new Vector3(0, 0, 1.5f);
-        lhand.transform.rotation = lhandtracker.transform.rotation;
-        rhand.transform.rotation = rhandtracker.transform.rotation;
+        Vector3 lpos = lhandtracker.transform.position;
+        Quaternion lrot = lhandtracker.transform.rotation;
+        lpos.z = 1.5f - lpos.z;
+        lrot.x = -lrot.x;
+        lrot.y = -lrot.y;
+		lhand.transform.position = lpos;
+		lhand.transform.rotation = lrot;
 
-    }
+        Vector3 rpos = rhandtracker.transform.position;
+        Quaternion rrot = rhandtracker.transform.rotation;
+        rpos.z = 1.5f - rpos.z;
+        rrot.x = -rrot.x;
+        rrot.y = -rrot.y;
+		rhand.transform.position = rpos;
+        rhand.transform.rotation = rrot;
+
+        // Reading triggers
+        rhand.transform.localScale = new Vector3(0.1f, 0.05f, 0.2f + OVRInput.Get(OVRInput.RawAxis1D.RHandTrigger));
+        lhand.transform.localScale = new Vector3(0.1f, 0.05f, 0.2f + OVRInput.Get(OVRInput.RawAxis1D.LHandTrigger));
+
+	}
 }
